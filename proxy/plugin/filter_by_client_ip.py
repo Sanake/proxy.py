@@ -37,7 +37,7 @@ class FilterByClientIpPlugin(HttpProxyBasePlugin):
             self, request: HttpParser,
     ) -> Optional[HttpParser]:
         assert not self.flags.unix_socket_path and self.client.addr
-        if self.client.addr[0] in self.flags.filtered_client_ips.split(','):
+        if not self.client.addr[0] in self.flags.filtered_client_ips.split(','):
             raise HttpRequestRejected(
                 status_code=httpStatusCodes.I_AM_A_TEAPOT, reason=b'I\'m a tea pot',
                 headers={
